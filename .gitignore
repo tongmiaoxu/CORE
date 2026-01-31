@@ -1,6 +1,6 @@
 # Ignore everything in the root directory
 
-# Except SEIL/SEIL and its contents
+# Except CORE/CORE and its contents
 
 logs/
 urdfs/
@@ -11,7 +11,7 @@ data/
 __pycache__/
 *.py[cod]
 *$py.class
-SEIL/data/
+CORE/data/
 .idea/
 check_point/
 assets/

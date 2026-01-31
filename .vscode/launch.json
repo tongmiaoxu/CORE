@@ -3,10 +3,10 @@
     "configurations": [
 
         {
-            "name": "Train SEIL",
+            "name": "Train CORE",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/SEIL_train.py",
+            "program": "${workspaceFolder}/CORE_train.py",
             "python": "${workspaceFolder}/venv/bin/python",
             "console": "integratedTerminal",
             "justMyCode": false,
@@ -40,7 +40,7 @@
                 "name": "Infer",
                 "type": "debugpy",
                 "request": "launch",
-                "program": "${workspaceFolder}/SEIL_infer.py",
+                "program": "${workspaceFolder}/CORE_infer.py",
                 "python": "${workspaceFolder}/venv/bin/python",
                 "console": "integratedTerminal",
                 "justMyCode": false,

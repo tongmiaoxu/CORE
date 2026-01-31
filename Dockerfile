@@ -44,9 +44,9 @@ RUN git clone https://github.com/RobotIL-rls/RobotIL.git /home/user/RobotIL --re
     git clone https://github.com/RobotIL-rls/robomimic.git /home/user/robomimic && \
     pip3 install -e ./RobotIL && \
     pip3 install -e ./robomimic && \
-    git clone https://github.com/your-repo/SEIL.git /home/user/SEIL
+    git clone https://github.com/tongmiaoxu/CORE.git /home/user/CORE
 
 
 # Set up the entry point
-WORKDIR /home/user/SEIL
+WORKDIR /home/user/CORE
 CMD ["/bin/bash"]

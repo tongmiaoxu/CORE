@@ -21,7 +21,7 @@ fi
 export MASTER_ADDR='localhost'  # Use the appropriate master node address
 export MASTER_PORT=12345        # Use any free port
 # Run the Python script
-python SEIL_train.py \
+python CORE_train.py \
     --policy_class ${policy_class} \
     --task_name ${task_name} \
     --batch_size 32 \

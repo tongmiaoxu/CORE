@@ -15,7 +15,7 @@ from rlbench.backend import utils
 from inferenceAPI import PolicyInferenceAPI
 from rlbench.backend.exceptions import InvalidActionError
 from scipy.spatial.transform import Rotation as R
-class SEILinference(PolicyInferenceAPI):
+class COREinference(PolicyInferenceAPI):
 
     def __init__(self,config):
         super().__init__(config)
@@ -562,7 +562,7 @@ def main():
     
 
     # Initialize the PolicyInferenceAPI
-    inference = SEILinference(config)
+    inference = COREinference(config)
     try:
         # Execute the inference
         inference.run_inference(ckpt_name=args["ckpt_name"])

@@ -21,7 +21,7 @@ seg_checkpoint="check_point/seg_model/seg_model_best.ckpt"
 ckpt_dir="check_point/${task_name}_${policy_class}_${visual_encoder}_${variant}"
     # 
 # Run the Python script
-python SEIL_infer.py \
+python CORE_infer.py \
     --ckpt_dir ${ckpt_dir} \
     --ckpt_name policy_best.ckpt \
     --task_name ${task_name} \

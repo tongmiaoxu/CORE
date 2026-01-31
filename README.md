@@ -1,14 +1,28 @@
+# CORE: Canonical Object Representations for Enhanced Manipulation
+
+This repository contains the official implementation of CORE, a method for manipulating articulated objects with generalization across object translations, scaling, and robot kinematics. We propose an object-centric representation that decouples vision-based decision making from robot execution, enabling stable predictions under varying camera views, object placements, and robot configurations.
+
+**Key Features:**
+- Object-centric imitation learning for articulated object manipulation
+- Generalization across camera perspectives, object translations, and scaling
+- Compatible with different robot kinematics
+- State-of-the-art performance on manipulation tasks
+
+For more details, see our [thesis](thesis/) or the [paper](#).
+
+---
+
 ## Record demos
 Set up
 ```bash
 # In terminal 1
 # pip install --user virtualenv
-# virtualenv SEIL
+# virtualenv CORE
 # source ENV/bin/activate
 # conda activate env
-git clone --recurse-submodules https://github.com/Tamphie/SEIL.git
+git clone --recurse-submodules https://github.com/tongmiaoxu/CORE.git
 
-cd SEIL
+cd CORE
  . venv/bin/activate
 pip install --upgrade pip setuptools
 
@@ -35,7 +49,7 @@ pip install PyQt5
 This is how to build task:
 You can configure the saved_path and task in the scripts
 ```bash
-cd SEIL/
+cd CORE/
 python3 tools/task_builder.py
 
 ```
@@ -45,14 +59,14 @@ This is how to collect data
 source ENV/bin/activate
 export ..
 pip install opencv-python-headless
-cd SEIL/
+cd CORE/
 bash scripts/generate_dataset_IL.sh
 #variations have to be larger than 0
 
 ```
 To see the collected image in MobaXterm
 ``` bash
-eog /home/tongmiao/SEIL/data/open_door/episode_0/front_rgb/0.png 
+eog /home/tongmiao/CORE/data/open_door/episode_0/front_rgb/0.png 
 
 
 ```
@@ -72,7 +86,7 @@ To infer:
 source ENV/bin/activate
 export ..
 pip install opencv-python-headless
-cd SEIL/
+cd CORE/
 bash scripts/inference.sh
 
 ```
