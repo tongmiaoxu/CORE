@@ -18,7 +18,7 @@ Our Results:
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | ACT | ✅ | ❌ | ❌ | ❌ | 30.0 |
 | DP3 | ✅ | ❌ | ❌ | ❌ | 15.0 |
-| CORE (Ours) | ✅ | ❌ | ❌ | ❌ | 95.0 |
+| CORE (Ours) | ✅ | ✅ | ✅ | ✅ | 95.0 |
 
 We test our policy’s ability to generalize across different door positions and camera views in a door-opening task in simulation, compared with another two baselines. The average success rates indicate our approach’s strong generalization ability across unseen camera viewpoints and object placements (variations ②, ③, ④). 
 

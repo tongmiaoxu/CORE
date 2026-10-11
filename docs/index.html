@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CORE: Canonical Object Representations for Enhanced Manipulation</title>
+  <meta name="description" content="CORE: an object-centric imitation learning framework that decouples vision-based decision making from robot execution, generalizing across camera viewpoints, object placements, and robot kinematics.">
+  <meta name="author" content="Tongmiao Xu">
+  <meta property="og:title" content="CORE: Canonical Object Representations for Enhanced Manipulation">
+  <meta property="og:description" content="Object-centric imitation learning that generalizes across camera views, object placements, and robot kinematics.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tongmiaoxu.github.io/CORE/">
+  <meta property="og:image" content="https://tongmiaoxu.github.io/CORE/static/images/overview.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚪</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f5f8f8;
+      --text: #1d2129;
+      --muted: #5d6573;
+      --border: #e1e7e8;
+      --accent: #0e7c86;          /* CORE teal, matches the figures */
+      --accent-soft: #e6f4f5;
+      --btn-bg: #1d2129;
+      --btn-text: #ffffff;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --radius: 12px;
+      --maxw: 1080px;
+      --narrow: 860px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    img, video { max-width: 100%; display: block; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .container.narrow { max-width: var(--narrow); }
+    .center { text-align: center; }
+
+    /* hero */
+    .hero { padding: 64px 0 28px; }
+    .title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 22px; }
+    .brand { color: var(--accent); }
+    .authors { font-size: 1.15rem; }
+    .authors a { color: #2563c9; }
+    .affiliations { margin-top: 6px; }
+    .note { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+    .badge { display: inline-block; margin-top: 14px; padding: 4px 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+    .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-text); font-weight: 500; font-size: 0.98rem; transition: transform .15s ease; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+
+    /* sections */
+    .section { padding: 56px 0; }
+    .section.alt { background: var(--bg-alt); }
+    .section.teaser { padding-top: 12px; }
+    h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.015em; margin: 0 0 18px; text-align: center; }
+    h3 { font-size: 1.15rem; margin: 0 0 8px; }
+    h3.sub { text-align: center; margin: 44px 0 16px; font-size: 1.25rem; }
+    .lead { color: var(--muted); max-width: var(--narrow); margin: 0 auto 26px; text-align: center; }
+    .abstract { text-align: justify; hyphens: auto; }
+    .caption, figcaption { color: var(--muted); font-size: 0.93rem; margin-top: 12px; text-align: center; }
+    figure { margin: 0; }
+    .fig { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+    .fig img, .fig video { margin: 0 auto; border-radius: 6px; }
+    .video-frame { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); max-width: 760px; margin: 0 auto; }
+    .video-frame video { width: 100%; }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .step { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .step .num { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; }
+    .step p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+    .steps > *, .two-col > *, .stats > * { min-width: 0; }
+
+    /* equations */
+    .eq { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.92rem; background: var(--accent-soft); border-radius: 8px; padding: 12px 16px; margin: 14px 0; overflow-x: auto; line-height: 2; }
+    .eq span { white-space: nowrap; margin-right: 22px; }
+
+    /* table */
+    .table-wrap { overflow-x: auto; }
+    table.results { border-collapse: collapse; margin: 0 auto; min-width: 520px; font-size: 0.98rem; }
+    table.results th, table.results td { padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--border); }
+    table.results th { font-weight: 600; background: var(--bg-alt); }
+    table.results td:first-child, table.results th:first-child { text-align: left; }
+    table.results tr.ours td { font-weight: 700; background: var(--accent-soft); }
+    .ok { color: var(--good); font-weight: 700; }
+    .no { color: var(--bad); font-weight: 700; }
+
+    /* stat tiles */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0 0; }
+    .stat { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+    .stat .v { font-size: 1.7rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+    .stat .l { font-size: 0.86rem; color: var(--muted); }
+
+    pre.bibtex { background: #1d2129; color: #e8eaed; border-radius: var(--radius); padding: 18px 20px; overflow-x: auto; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86rem; line-height: 1.55; }
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; text-align: center; border-top: 1px solid var(--border); }
+
+    @media (max-width: 820px) {
+      .steps, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding-top: 40px; }
+      body { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header class="hero">
+  <div class="container narrow center">
+    <h1 class="title"><span class="brand">CORE</span>: Canonical Object Representations for Enhanced Manipulation</h1>
+    <div class="authors"><a href="https://tongmiaoxu.github.io/">Tongmiao Xu</a></div>
+    <div class="affiliations">
+      AdapComp Lab, National University of Singapore &nbsp;·&nbsp; Xi'an Jiaotong University
+    </div>
+    <div class="note">Advised by Dr. Hanbo Zhang and <a href="https://www.comp.nus.edu.sg/~dyhsu/">Prof. David Hsu</a></div>
+    <div class="badge">EEML 2025 Best Poster Award</div>
+
+    <div class="links">
+      <a class="btn" href="https://github.com/tongmiaoxu/CORE/blob/main/files/thesis.pdf"><i class="fa-solid fa-file-pdf"></i><span>Thesis</span></a>
+      <a class="btn" href="https://tongmiaoxu.github.io/pdfs/eemlposter.pdf"><i class="fa-solid fa-image"></i><span>Poster</span></a>
+      <a class="btn" href="https://github.com/tongmiaoxu/CORE"><i class="fa-brands fa-github"></i><span>Code</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== TEASER ============================== -->
+<section class="section teaser">
+  <div class="container">
+    <div class="video-frame">
+      <video autoplay muted loop playsinline preload="auto" poster="static/images/rollout_poster.jpg">
+        <source src="static/videos/rollout.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="caption">
+      Closed-loop rollout of the object-centric policy on the door-opening task in RLBench (CoppeliaSim), with front, wrist and overhead camera streams shown on the right.
+    </p>
+  </div>
+</section>
+
+<!-- ============================== ABSTRACT ============================== -->
+<section class="section">
+  <div class="container narrow">
+    <h2>Abstract</h2>
+    <p class="abstract">
+      We introduce a novel approach for manipulating articulated objects with the ability to generalize across object translations, scaling, and robot kinematics.
+      In traditional imitation learning, the learned policy fails if camera perspectives or the relative positions of objects change during inference, and it is specific to certain robot configurations.
+      To tackle these challenges, we propose an <strong>object-centric representation</strong> for both observations of object motions and robot actions, which <strong>decouples vision-based decision making from robot execution</strong>.
+      The center here refers to a canonical frame of the articulated object that remains invariant regardless of the contact point.
+      We further use object-centric imitation learning to make stable predictions under varying camera views, object placements, and robot kinematics.
+      Experiments and analysis demonstrate that our method achieves state-of-the-art performance in articulated object manipulation and dramatically improves generalization.
+    </p>
+  </div>
+</section>
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="section alt">
+  <div class="container">
+    <h2>Why decouple vision and motion?</h2>
+    <p class="lead">
+      Pixel-based policies with trajectories anchored in the robot's base frame overfit to the exact camera pose and object placement seen during training.
+      CORE instead reasons in a frame attached to the object itself, so the same policy transfers when the camera moves or the door is placed somewhere new.
+    </p>
+    <figure class="fig">
+      <img src="static/images/views_placements.png" alt="Four camera viewpoints of a door (left) and four door placements relative to a Panda arm (right)" loading="lazy">
+    </figure>
+    <figcaption>
+      Generalization targets. <strong>Left:</strong> the same door seen from different camera viewpoints. <strong>Right:</strong> the same door under different placements.
+      An object-centric policy produces consistent actions across all of these conditions.
+    </figcaption>
+  </div>
+</section>
+
+<!-- ============================== METHOD ============================== -->
+<section class="section">
+  <div class="container">
+    <h2>Method</h2>
+    <p class="lead">
+      A contact-anchored object frame turns observations and actions into a representation that is invariant to where the object is, where the camera is, and which robot executes the motion.
+    </p>
+
+    <figure class="fig">
+      <img src="static/images/overview.png" alt="Overview of the CORE object-centric policy" loading="lazy">
+    </figure>
+    <figcaption>
+      Overview. End-effector states and action sequences are transformed from the world frame into a contact frame, established by contact-point detection and door-pose estimation.
+      A PointNet segmentation model and a lightweight perception encoder turn the normalized door point cloud into a contact label and a compact 3D representation.
+    </figcaption>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Canonical object frame</h3>
+        <p>The frame is anchored at the contact point <em>p*</em> on the door. Its <em>Z</em>-axis follows the hinge, <em>X</em> is normal to the door surface, and <em>Y = Z × X</em>. Point clouds are rotated into this frame and centered at their centroid, and actions are expressed relative to <em>p*</em>.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Contact-aware perception</h3>
+        <p>A PointNet segmentation network predicts per-point contact confidence on the cropped, unit-normalized door cloud (1,024 points). Door orientation comes from an oriented bounding box, and a DP3-style MLP encoder compresses the cloud into a 64-d feature.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Object-centric CVAE policy</h3>
+        <p>An ACT-style CVAE predicts chunks of end-effector poses and gripper widths in the object frame, conditioned on the 3D feature and the object-centric robot state. Predicted actions are mapped back to the robot's base frame for execution.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Object-centric transforms</h3>
+    <div class="container narrow" style="padding:0">
+      <p>Given the estimated object rotation <em>R</em> and contact point <em>p*</em>, observations and actions are mapped into the object frame <em>A<sub>t</sub></em>:</p>
+      <div class="eq"><span>P′<sub>t</sub> = R · (P<sub>t</sub> − p̄<sub>t</sub>) + t</span> <span>p̂<sub>t:t+k</sub> = R · (p<sub>t:t+k</sub> − p*) + t</span> <span>R̂<sub>t:t+k</sub> = R · R<sub>t:t+k</sub></span></div>
+      <p>At inference the predicted chunk is transformed back with <span style="font-family:'JetBrains Mono',monospace;font-size:.92em">p = Rᵀ · p̂ + p*</span> and <span style="font-family:'JetBrains Mono',monospace;font-size:.92em">R = Rᵀ · R̂</span>, so the robot's own kinematics never enter the learned policy.</p>
+    </div>
+
+    <h3 class="sub">Policy architecture and inference</h3>
+    <figure class="fig" style="margin-bottom:22px">
+        <img src="static/images/inference.png" alt="Inference pipeline from door point cloud to executed action" loading="lazy">
+        <figcaption>Inference. The predicted contact point and estimated door pose build the object-centric input and also carry the predicted actions back to the world frame for execution.</figcaption>
+      </figure>
+    <figure class="fig" style="max-width:640px;margin:0 auto">
+        <img src="static/images/cvae.png" alt="CVAE policy architecture with transformer encoder and decoder" loading="lazy">
+        <figcaption>CVAE policy. The encoder infers a style variable <em>z</em> from the action chunk (training only); the decoder conditions on <em>z</em>, the end-effector state and the compact 3D representation to output an action sequence.</figcaption>
+      </figure>
+  </div>
+</section>
+
+<!-- ============================== EXPERIMENTS ============================== -->
+<section class="section alt">
+  <div class="container">
+    <h2>Experiments</h2>
+    <p class="lead">
+      40 expert demonstrations of door opening with a simulated Panda arm in RLBench. Training uses only placement ①; placements ②–④ and their camera views are out of distribution.
+      Each setting is evaluated over 40 episodes × 3 seeds. Success means the door opens at least 25°.
+    </p>
+
+    <figure class="fig">
+      <img src="static/images/generalization.png" alt="Door placements used for training and testing, with per-variation success rates" loading="lazy">
+    </figure>
+    <figcaption>
+      Training placement (green) and unseen test placements (red, orange, blue). CORE reaches 100% success on ①–③ and 80% on ④.
+    </figcaption>
+
+    <h3 class="sub">Spatial generalization</h3>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr><th>Method</th><th>Input</th><th>①</th><th>②</th><th>③</th><th>④</th><th>Avg. success (%)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ACT</td><td>RGB-D</td><td class="ok">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td>30.0</td></tr>
+          <tr><td>DP3</td><td>Scene point cloud</td><td class="ok">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td>15.0</td></tr>
+          <tr class="ours"><td>CORE (ours)</td><td>Object point cloud</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td>95.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">95%</div><div class="l">average success across placements</div></div>
+      <div class="stat"><div class="v">3.2×</div><div class="l">higher than the strongest baseline (ACT)</div></div>
+      <div class="stat"><div class="v">9.68</div><div class="l">FPS closed-loop inference</div></div>
+      <div class="stat"><div class="v">1,024</div><div class="l">object points used (of ~10k scene points)</div></div>
+    </div>
+
+    <h3 class="sub">Input modalities</h3>
+    <figure class="fig">
+      <img src="static/images/modalities.png" alt="RGB and depth images, uncropped and cropped point clouds" loading="lazy">
+    </figure>
+    <figcaption>ACT consumes RGB-D images, DP3 consumes the uncropped scene point cloud, and CORE uses only the cropped point cloud of the door.</figcaption>
+
+    <h3 class="sub">Qualitative results</h3>
+    <figure class="fig">
+      <img src="static/images/predictions.png" alt="Predicted trajectories and contact points under four placements" loading="lazy">
+    </figure>
+    <figcaption>Predicted contact location and end-effector trajectory overlaid on the scene for four object displacements and camera viewpoints.</figcaption>
+
+    <div class="two-col" style="margin-top:28px">
+      <figure class="fig">
+        <img src="static/images/task_progress.png" alt="Task progress at unseen placements 2, 3 and 4" loading="lazy">
+        <figcaption>Task progress at unseen placements ②–④ (10 trials each), with the front-camera view on the left.</figcaption>
+      </figure>
+      <figure class="fig">
+        <img src="static/images/success_vs_failure.png" alt="Successful handle manipulation by CORE versus failure by baselines" loading="lazy">
+        <figcaption><strong>(a)</strong> CORE keeps its predicted trajectory aligned with the door and handle at unseen positions. <strong>(b)</strong> Baselines typically fail because the gripper never reaches the handle.</figcaption>
+      </figure>
+    </div>
+
+    <div class="container narrow" style="padding:0;margin-top:32px">
+      <h3>Limitations</h3>
+      <p>
+        The remaining failures at placement ④ happen when the elbow collides with the door on the approach. The door still opens, but without proper use of the handle.
+        An object-centric trajectory transfers across placements, but it still has to fall within the robot's reachable workspace. Otherwise planning can fail or the view can become occluded.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CITATION ============================== -->
+<section class="section">
+  <div class="container narrow">
+    <h2>Citation</h2>
+<pre class="bibtex">@thesis{xu2025core,
+  title  = {CORE: Canonical Object Representations for Enhanced Manipulation},
+  author = {Tongmiao Xu},
+  type   = {Bachelor's thesis},
+  school = {Xi'an Jiaotong University},
+  note   = {Research conducted at the AdapComp Lab, National University of Singapore},
+  year   = {2025}
+}</pre>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2025 Tongmiao Xu · Page layout adapted from <a href="https://stripe-robot.github.io/">STRIPE</a> and <a href="https://nerfies.github.io/">Nerfies</a>.
+  </div>
+</footer>
+
+</body>
+</html>
